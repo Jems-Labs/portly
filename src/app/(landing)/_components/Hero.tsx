@@ -1,19 +1,43 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useApp } from "@/stores/useApp";
 import { validateUsername } from "@/lib/valideUsername";
+import { Check, X, Loader2 } from "lucide-react";
 
 function Hero() {
-  const { setClaimedUsername } = useApp();
+  const { setClaimedUsername, searchUsername } = useApp();
   const [error, setError] = useState<string>("");
+  const [checking, setChecking] = useState(false);
+  const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { error, sanitized } = validateUsername(e.target.value);
-    setError(error);
+    const input = e.target.value;
+    const { error, sanitized } = validateUsername(input);
+
     setClaimedUsername(sanitized);
+    setError(error);
+    setIsAvailable(null);
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    if (!error && sanitized) {
+      setChecking(true);
+      debounceRef.current = setTimeout(async () => {
+        const available = await searchUsername(sanitized);
+        setChecking(false);
+
+        setIsAvailable(Boolean(available));
+
+        setError(available ? "" : "Username already taken 😓");
+      }, 500);
+    } else {
+      setChecking(false);
+    }
   };
 
   return (
@@ -33,7 +57,6 @@ function Hero() {
           </h1>
         </div>
 
-
         <h2 className="text-lg sm:text-xl md:text-2xl font-manrope text-muted-foreground max-w-2xl mx-auto">
           Built for creators, founders, and doers <br />
           who need more than just another link in bio.
@@ -45,18 +68,30 @@ function Hero() {
               <div className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 font-medium">
                 portly/
               </div>
+
               <Input
                 type="text"
                 placeholder="username"
-                className="pl-[70px] h-12 font-medium rounded-xl border-2 focus-visible:ring-2 focus-visible:ring-blue-500"
+                className="pl-[65px] pr-12 font-medium rounded-xl border-2 focus-visible:ring-2 focus-visible:ring-blue-500 h-12"
                 onChange={handleUsernameChange}
               />
+
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                {checking && <Loader2 className="animate-spin text-gray-400 w-5 h-5" />}
+                {!checking && isAvailable === true && (
+                  <Check className="text-green-500 w-5 h-5" />
+                )}
+                {!checking && isAvailable === false && (
+                  <X className="text-red-500 w-5 h-5" />
+                )}
+              </div>
             </div>
+
             {error && (
               <p className="text-red-500 text-sm mt-2 text-left">{error}</p>
             )}
           </div>
-          <Button className="h-12 px-6 text-base font-semibold rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-md transition">
+          <Button variant={"secondary"} className="h-12">
             Claim
           </Button>
         </div>
