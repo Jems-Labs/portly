@@ -4,6 +4,7 @@ import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { GlobalStateInitializer } from "@/components/GlobalStateInitializer";
 
 
 const manrope = Manrope({
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className={`${manrope.variable} ${playfair.variable} font-sans`}>
         <Navbar />
+        <GlobalStateInitializer />
         {children}
         <Toaster position="top-center"/>
       </body>

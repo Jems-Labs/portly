@@ -35,7 +35,7 @@ export const useApp = create<useAppType>((set) => ({
       const res = await axios.post("/api/login", formData);
       if (res.status === 200) {
         toast.success("Login successful");
-        set({user: res.data});
+        set({ user: res.data });
         redirectTo("/admin");
       }
     } catch (error) {
@@ -45,6 +45,36 @@ export const useApp = create<useAppType>((set) => ({
           "Something went wrong. Please try again.";
         toast.error(errorMsg);
       }
+    }
+  },
+
+  logout: async (redirectTo) => {
+    try {
+      const res = await axios.post("/api/logout");
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        set({ user: null });
+        redirectTo("/login");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMsg =
+          error.response?.data?.msg ||
+          "Something went wrong. Please try again.";
+        toast.error(errorMsg);
+      }
+    }
+  },
+  fetchUser: async () => {
+    try {
+      const res = await axios.get("/api/user");
+      if (res.status === 200) {
+        set({ user: res.data });
+      } else {
+        set({ user: null });
+      }
+    } catch (error) {
+      set({ user: null });
     }
   },
 }));

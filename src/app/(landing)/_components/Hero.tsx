@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useApp } from "@/stores/useApp";
 import { validateUsername } from "@/lib/valideUsername";
 import { Check, X, Loader2 } from "lucide-react";
+import Link from "next/link";
 
 function Hero() {
   const { setClaimedUsername, searchUsername } = useApp();
@@ -91,9 +92,11 @@ function Hero() {
               <p className="text-red-500 text-sm mt-2 text-left">{error}</p>
             )}
           </div>
-          <Button variant={"secondary"} className="h-12">
-            Claim
-          </Button>
+          <Link href={'/signup'}>
+            <Button variant={"secondary"} className="h-12 px-5 text-base">
+              Claim
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

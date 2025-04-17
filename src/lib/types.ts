@@ -19,4 +19,6 @@ export type useAppType = {
   signup: (formData: signupFormData, redirectTo: (url: string) => void) => void;
   searchUsername: (username: string) => Promise<Boolean>;
   login: (formData: loginFormData, redirectTo: (url: string) => void) => void;
+  logout: (redirectTo: (url: string) => void) => void;
+  fetchUser: () => void;
 };
