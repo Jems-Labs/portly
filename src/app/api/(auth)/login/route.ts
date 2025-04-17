@@ -23,8 +23,10 @@ export async function POST(req: Request) {
         email,
       },
     });
-
-    const isMatch = passwordCompare(password, user?.password || "");
+    if (!user) {
+      return NextResponse.json({ msg: "User not found" }, { status: 404 });
+    }
+    const isMatch = await passwordCompare(password, user?.password);
     if (!isMatch) {
       return NextResponse.json({ msg: "Invalid Credentials" }, { status: 400 });
     }
