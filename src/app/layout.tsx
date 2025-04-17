@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google"; 
 
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { GlobalStateInitializer } from "@/components/GlobalStateInitializer";
 
@@ -28,9 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
+    <html lang="en" className="dark">
       <body className={`${manrope.variable} ${playfair.variable} font-sans`}>
-        <Navbar />
         <GlobalStateInitializer />
         {children}
         <Toaster position="top-center"/>

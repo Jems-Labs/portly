@@ -3,17 +3,16 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { useApp } from "@/stores/useApp";
-import { useRouter } from "next/navigation";
-import { ChevronRight, LogOut } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 function Navbar() {
-  const { user, logout } = useApp();
-  const router = useRouter();
+  const { user } = useApp();
+
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm border-b">
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex items-center justify-between">
-        {/* Logo */}
+
         <Link href="/">
           <span className="font-playfair text-2xl sm:text-3xl font-bold tracking-tight hover:opacity-80 transition cursor-pointer">
             Portly
@@ -28,17 +27,10 @@ function Navbar() {
                   className="rounded-lg px-4 gap-1 bg-gray-200 hover:bg-gray-200 transition"
                   type="button"
                 >
-                  Admin Panel <ChevronRight className="w-4 h-4" />
+                  Admin <ChevronRight className="w-4 h-4" />
                 </Button>
               </Link>
-              <Button
-                variant="destructive"
-                onClick={() => logout(router.push)}
-                className="rounded-lg p-3 transition"
-                aria-label="Logout"
-              >
-                <LogOut className="w-5 h-5" />
-              </Button>
+
             </>
           ) : (
             <>

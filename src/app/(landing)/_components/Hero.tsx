@@ -73,7 +73,7 @@ function Hero() {
               <Input
                 type="text"
                 placeholder="username"
-                className="pl-[65px] pr-12 font-medium rounded-xl border-2 focus-visible:ring-2 focus-visible:ring-blue-500 h-12"
+                className="pl-[65px] pr-12 font-medium rounded-lg border-2 focus-visible:ring-2 focus-visible:ring-blue-500 h-12"
                 onChange={handleUsernameChange}
               />
 
