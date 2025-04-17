@@ -7,18 +7,19 @@ import { validateUsername } from "@/lib/valideUsername";
 import { useApp } from "@/stores/useApp";
 import Link from "next/link";
 import { useState, useRef } from "react";
-import { Check, X, Loader2 } from "lucide-react";
+import { Check, X, Loader2, Eye, EyeClosed } from "lucide-react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const { claimedUsername, setClaimedUsername, signup, searchUsername } = useApp();
-
+  const router = useRouter();
   const [error, setError] = useState("");
   const [checking, setChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
-
+  const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     username: claimedUsername,
     email: "",
@@ -28,12 +29,12 @@ function Signup() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isAvailable) {
-      toast.error("Username already taken")
+      toast.error("Username already taken");
       return;
     }
 
     setIsLoading(true);
-    await signup(formData);
+    await signup(formData, router.push);
     setIsLoading(false);
   };
 
@@ -45,7 +46,7 @@ function Signup() {
     setError(error);
     setIsAvailable(null);
 
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       username: sanitized,
     }));
@@ -89,8 +90,6 @@ function Signup() {
               onChange={handleUsernameChange}
               value={formData.username}
             />
-
-
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               {checking && <Loader2 className="animate-spin text-gray-400 w-5 h-5" />}
               {!checking && isAvailable === true && (
@@ -119,15 +118,24 @@ function Signup() {
 
         <div>
           <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="*****"
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
-            className="h-12 rounded-xl border-2"
-          />
+          <div className="relative">
+            <Input
+              id="password"
+              type={isOpen ? "text" : "password"}
+              placeholder="*****"
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+              className="h-12 rounded-xl border-2 pr-10"
+            />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 pr-3 cursor-pointer">
+              {isOpen ? (
+                <Eye className="text-gray-500 w-5 h-5" onClick={() => setIsOpen(false)} />
+              ) : (
+                <EyeClosed className="text-gray-500 w-5 h-5" onClick={() => setIsOpen(true)} />
+              )}
+            </div>
+          </div>
         </div>
 
         <Button

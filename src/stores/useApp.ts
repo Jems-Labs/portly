@@ -5,12 +5,13 @@ import { toast } from "sonner";
 export const useApp = create<useAppType>((set) => ({
   claimedUsername: "",
   setClaimedUsername: (username: string) => set({ claimedUsername: username }),
-
-  signup: async (formData) => {
+  user: null,
+  signup: async (formData, redirectTo) => {
     try {
       const res = await axios.post("/api/signup", formData);
       if (res.status === 200) {
         toast.success(res.data.msg);
+        redirectTo("/login");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -27,6 +28,23 @@ export const useApp = create<useAppType>((set) => ({
       return true;
     } else {
       return false;
+    }
+  },
+  login: async (formData, redirectTo) => {
+    try {
+      const res = await axios.post("/api/login", formData);
+      if (res.status === 200) {
+        toast.success("Login successful");
+        set({user: res.data});
+        redirectTo("/admin");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMsg =
+          error.response?.data?.msg ||
+          "Something went wrong. Please try again.";
+        toast.error(errorMsg);
+      }
     }
   },
 }));

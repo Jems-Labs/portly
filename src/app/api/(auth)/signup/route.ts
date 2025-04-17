@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ msg: "Signup Successful" }, { status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

@@ -11,3 +11,7 @@ export const signupSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
   password: z.string(),
 });
+export const loginSchema = z.object({
+  email: z.string().email({message: "Please enter a valid email address"}),
+  password: z.string()
+})
