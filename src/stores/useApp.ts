@@ -117,4 +117,16 @@ export const useApp = create<useAppType>((set) => ({
       toast.error("Failed to delete tag. Please try again.");
     }
   },
+  addSocialLink: async (socialLinks) => {
+    try {
+      const res = await axios.post("/api/user/social-links", socialLinks);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      toast.error("Failed to add social link. Please try again.");
+    }
+  }
 }));

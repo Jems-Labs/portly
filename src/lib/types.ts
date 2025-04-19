@@ -15,6 +15,11 @@ export type skillType = {
   name: string;
   userId: string;
 };
+export type socialLinkType = {
+  id: number;
+  platform: string;
+  url: string;
+}
 export type UserType = {
   id: number;
   username: string;
@@ -26,6 +31,7 @@ export type UserType = {
   status: string;
   pronouns: string;
   skills: skillType[];
+  socialLinks: socialLinkType[]
 };
 export type useAppType = {
   claimedUsername: string;
@@ -39,4 +45,5 @@ export type useAppType = {
   updateProfile: (formData: FormData) => void;
   addTag: (tag: string) => void;
   deleteTag: (tagId: number) => void;
+  addSocialLink: (socialLinks: {key: string, url: string}[]) => void
 };

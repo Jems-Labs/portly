@@ -34,3 +34,17 @@ export const status = [
     label: "Hiring",
   },
 ];
+
+export const platforms = [
+  { name: "GitHub", key: "GITHUB", svg: "/icons/github.png" },
+  { name: "Dribbble", key: "DRIBBLE", svg: "/icons/dribbble.png" },
+  { name: "Medium", key: "MEDIUM", svg: "/icons/medium.png" },
+  { name: "X", key: "X", svg: "/icons/x.png" },
+  { name: "LinkedIn", key: "LINKEDIN", svg: "/icons/linkedin.png" },
+  { name: "YouTube", key: "YOUTUBE", svg: "/icons/youtube.png" },
+  { name: "Figma", key: "FIGMA", svg: "/icons/figma.png" },
+  { name: "Instagram", key: "INSTAGRAM", svg: "/icons/instagram.png" },
+  { name: "Facebook", key: "FACEBOOK", svg: "/icons/facebook.png" },
+  { name: "Threads", key: "THREADS", svg: "/icons/threads.png" },
+  { name: "Gumroad", key: "GUMROAD", svg: "/icons/gumroad.png" },
+];

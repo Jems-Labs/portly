@@ -8,19 +8,20 @@ datasource db {
 }
 
 model User {
-  id        Int               @id @default(autoincrement())
-  username  String            @unique
-  email     String            @unique
-  password  String
-  image     ProfileImage?
-  bio       String?           @db.Text
-  firstName String?
-  lastName  String?
-  status    Status?           @default(open)
-  pronouns  personalPronouns? @default(prefer_not_to_say)
-  skills    Skill[]
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
+  id          Int               @id @default(autoincrement())
+  username    String            @unique
+  email       String            @unique
+  password    String
+  image       ProfileImage?
+  bio         String?           @db.Text
+  firstName   String?
+  lastName    String?
+  status      Status?           @default(open)
+  pronouns    personalPronouns? @default(prefer_not_to_say)
+  skills      Skill[]
+  socialLinks SocialLink[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 }
 
 model ProfileImage {
@@ -37,6 +38,14 @@ model Skill {
   user   User   @relation(fields: [userId], references: [id])
 }
 
+model SocialLink {
+  id       Int      @id @default(autoincrement())
+  url      String
+  userId   Int
+  user     User     @relation(fields: [userId], references: [id])
+  platform Platform
+}
+
 enum Status {
   open
   hiring
@@ -47,4 +56,18 @@ enum personalPronouns {
   she_her
   they_their
   prefer_not_to_say
+}
+
+enum Platform {
+  GITHUB
+  DRIBBBLE
+  MEDIUM
+  X
+  LINKEDIN
+  YOUTUBE
+  FIGMA
+  INSTAGRAM
+  FACEBOOK
+  THREADS
+  GUMROAD
 }

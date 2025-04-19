@@ -11,15 +11,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CircleUser, Tag, X } from "lucide-react";
+import {
+  CircleUser, Link, Tag,
+  X
+} from "lucide-react";
 import React, { useState } from "react";
 import { useApp } from "@/stores/useApp";
-import { personalPronounsList, status as statusList } from "@/lib/utils";
+import { personalPronounsList, platforms, status as statusList } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 function Admin() {
-  const { user, updateProfile, addTag, deleteTag } = useApp();
+  const { user, updateProfile, addTag, deleteTag, addSocialLink } = useApp();
 
   const [isLoading, setIsLoading] = useState(false);
   const [selectedPronouns, setSelectedPronouns] = useState(user?.pronouns || "prefer_not_to_say");
@@ -33,6 +36,23 @@ function Admin() {
   const [tag, setTag] = useState<string>("");
 
   const [isAddingTag, setIsAddingTag] = useState(false);
+  const [isAddingSocialLink, setIsAddingSocialLink] = useState(false);
+  const [socialLinks, setSocialLinks] = useState(
+    user?.socialLinks?.map((link) => ({ key: link.platform, url: link.url })) || []
+  );
+
+  const handleSocialLinkChange = (key: string, value: string) => {
+    setSocialLinks((prevLinks) => {
+      const exists = prevLinks.find((link) => link.key === key);
+      if (exists) {
+        return prevLinks.map((link) =>
+          link.key === key ? { ...link, url: value } : link
+        );
+      } else {
+        return [...prevLinks, { key, url: value }];
+      }
+    });
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -41,7 +61,6 @@ function Admin() {
       const previewURL = URL.createObjectURL(selectedFile);
       setPreviewImage(previewURL);
 
-      // Cleanup object URL when file changes
       return () => URL.revokeObjectURL(previewURL);
     }
   };
@@ -55,7 +74,7 @@ function Admin() {
     formData.append("bio", bio);
     formData.append("pronouns", selectedPronouns);
     formData.append("status", selectedStatus);
-    if (file) formData.append("image", file);
+    if (file) formData.append("image", file);;
 
     await updateProfile(formData);
     setIsLoading(false);
@@ -69,9 +88,14 @@ function Admin() {
     }
     setIsAddingTag(false);
   };
-
+  const handleAddSocialLink = async () => {
+    setIsAddingSocialLink(true);
+    await addSocialLink(socialLinks);
+    setIsAddingSocialLink(false);
+  }
   return (
     <div className="px-5">
+      {/* Basic Info */}
       <div>
         <div className="flex items-center gap-2 py-3">
           <CircleUser size={17} />
@@ -100,7 +124,7 @@ function Admin() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="eg. John"
-              className="bg-black"
+              className="bg-[#0D0D0D]"
             />
           </div>
           <div className="flex flex-col gap-2 py-3 w-1/2">
@@ -111,21 +135,21 @@ function Admin() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="eg. Doe"
-              className="bg-black"
+              className="bg-[#0D0D0D]"
             />
           </div>
         </div>
 
         <div>
           <Label>Bio</Label>
-          <Textarea value={bio} onChange={(e) => setBio(e.target.value)} className="bg-black" />
+          <Textarea value={bio} onChange={(e) => setBio(e.target.value)} className="bg-[#0D0D0D]" />
         </div>
 
         <div className="flex w-full gap-3 items-center py-3">
           <div>
             <Label>Personal Pronouns</Label>
             <Select value={selectedPronouns} onValueChange={setSelectedPronouns}>
-              <SelectTrigger className="w-[180px] bg-black">
+              <SelectTrigger className="w-[180px] bg-[#0D0D0D]">
                 <SelectValue placeholder="Select pronouns" />
               </SelectTrigger>
               <SelectContent>
@@ -143,7 +167,7 @@ function Admin() {
           <div>
             <Label>Status</Label>
             <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-              <SelectTrigger className="w-[180px] bg-black">
+              <SelectTrigger className="w-[180px] bg-[#0D0D0D]">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
@@ -168,6 +192,7 @@ function Admin() {
         </Button>
       </div>
 
+      {/* Tags */}
       <div className="py-10">
         <div className="flex items-center gap-2 py-3">
           <Tag size={17} />
@@ -178,7 +203,7 @@ function Admin() {
         <div className="flex gap-2 py-3">
           <Input
             placeholder="Add skills, tools or roles"
-            className="bg-black"
+            className="bg-[#0D0D0D]"
             onChange={(e) => setTag(e.target.value)}
             value={tag}
           />
@@ -193,13 +218,43 @@ function Admin() {
 
         <div className="flex flex-wrap gap-2">
           {user?.skills?.map((skill, index) => (
-
             <Badge key={index} className="flex gap-2 cursor-pointer">
               {skill?.name}
               <X size={12} onClick={() => deleteTag(skill.id)} />
             </Badge>
           ))}
         </div>
+      </div>
+
+      {/* Social Links */}
+      <div>
+        <div className="flex items-center gap-2 py-3">
+          <Link size={17} />
+          <h1>Social Links</h1>
+        </div>
+        <Separator />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+          {platforms.map((platform) => (
+            <div key={platform.key} className="flex items-center gap-3 bg-[#0D0D0D] p-3 rounded-lg">
+              <img src={platform.svg} alt={platform.name} className="w-5 h-5" />
+              <Input
+                placeholder={`${platform.name} URL`}
+                value={socialLinks.find((link) => link.key === platform.key)?.url || ""}
+                onChange={(e) => handleSocialLinkChange(platform.key, e.target.value)}
+                className="flex-1 bg-transparent border focus-visible:ring-0 focus-visible:ring-offset-0"
+              />
+            </div>
+          ))}
+        </div>
+        <Button onClick={handleAddSocialLink} disabled={isAddingSocialLink}>
+          {
+            isAddingSocialLink ? (
+              <div className="animate-spin h-4 w-4 border-2 border-black border-t-transparent rounded-full" />
+            ) : (
+              "Save"
+            )
+          }
+        </Button>
       </div>
     </div>
   );

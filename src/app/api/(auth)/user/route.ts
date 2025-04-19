@@ -13,6 +13,7 @@ export async function GET() {
       include: {
         image: true,
         skills: true,
+        socialLinks: true,
       },
     });
     if (!user) {
@@ -30,6 +31,7 @@ export async function GET() {
         status: user?.status,
         pronouns: user?.pronouns,
         skills: user?.skills,
+        socialLinks: user?.socialLinks,
       },
       { status: 200 }
     );
