@@ -83,3 +83,63 @@ export async function PUT(req: Request) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
+
+export async function POST(req: Request) {
+  const id = await getToken();
+  const { searchParams } = new URL(req.url);
+  const tag = searchParams.get("tag");
+  try {
+    if (!tag) {
+      return NextResponse.json({ msg: "Tag not found" }, { status: 404 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      return NextResponse.json({ msg: "User not found" }, { status: 404 });
+    }
+    await prisma.skill.create({
+      data: {
+        name: tag,
+        userId: user.id,
+      },
+    });
+
+    return NextResponse.json(
+      { msg: "Tag added successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
+  }
+}
+export async function DELETE(req: Request) {
+  const id = await getToken();
+  const { searchParams } = new URL(req.url);
+  const tagId = searchParams.get("tagId");
+  const prasedTagId = parseInt(tagId as string, 10);
+  try {
+    if (!tagId) {
+      return NextResponse.json({ msg: "Tag not found" }, { status: 404 });
+    }
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      return NextResponse.json({ msg: "User not found" }, { status: 404 });
+    }
+    await prisma.skill.delete({
+      where: {
+        id: prasedTagId,
+      },
+    });
+
+    return NextResponse.json(
+      { msg: "Tag deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
+  }
+}

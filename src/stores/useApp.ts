@@ -93,4 +93,28 @@ export const useApp = create<useAppType>((set) => ({
       toast.error("Failed to update profile. Please try again.");
     }
   },
+  addTag: async (tag) => {
+    try {
+      const res = await axios.post(`/api/user/profile-update?tag=${tag}`, {});
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      toast.error("Failed to add tag. Please try again.");
+    }
+  },
+  deleteTag: async (tagId) => {
+    try {
+      const res = await axios.delete(`/api/user/profile-update?tagId=${tagId}`);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      toast.error("Failed to delete tag. Please try again.");
+    }
+  },
 }));

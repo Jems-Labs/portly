@@ -18,6 +18,7 @@ model User {
   lastName  String?
   status    Status?           @default(open)
   pronouns  personalPronouns? @default(prefer_not_to_say)
+  skills    Skill[]
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
 }
@@ -26,6 +27,13 @@ model ProfileImage {
   id     Int    @id @default(autoincrement())
   url    String
   userId Int    @unique
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Skill {
+  id     Int    @id @default(autoincrement())
+  name   String @unique
+  userId Int
   user   User   @relation(fields: [userId], references: [id])
 }
 

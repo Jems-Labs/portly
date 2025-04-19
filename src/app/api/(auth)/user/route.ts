@@ -12,6 +12,7 @@ export async function GET() {
       where: { id },
       include: {
         image: true,
+        skills: true,
       },
     });
     if (!user) {
@@ -28,6 +29,7 @@ export async function GET() {
         bio: user?.bio,
         status: user?.status,
         pronouns: user?.pronouns,
+        skills: user?.skills,
       },
       { status: 200 }
     );
