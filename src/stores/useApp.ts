@@ -77,4 +77,20 @@ export const useApp = create<useAppType>((set) => ({
       set({ user: null });
     }
   },
+  updateProfile: async (formData) => {
+    try {
+      const res = await axios.put("/api/user/profile-update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      toast.error("Failed to update profile. Please try again.");
+    }
+  },
 }));

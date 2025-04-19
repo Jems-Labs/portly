@@ -1,37 +1,42 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useApp } from '@/stores/useApp';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import React, { useState } from "react";
+import { useApp } from "@/stores/useApp";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Briefcase,
   ChartNoAxesColumnIncreasing,
   CreditCard,
   FolderClosed,
+  LogOut,
   PanelLeftClose,
   PanelRightClose,
   User,
-} from 'lucide-react';
+} from "lucide-react";
 
 function Sidebar() {
-  const { user } = useApp();
+  const { logout } = useApp();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(true);
-
+  const router = useRouter();
   const navItems = [
-    { label: 'Profile', icon: <User />, href: '/admin' },
-    { label: 'Projects', icon: <FolderClosed />, href: '/admin/projects' },
-    { label: 'Experience', icon: <Briefcase />, href: '/admin/experience' },
-    { label: 'Quick Card', icon: <CreditCard />, href: '/admin/quick-card' },
-    { label: 'Analytics', icon: <ChartNoAxesColumnIncreasing />, href: '/admin/analytics' },
+    { label: "Profile", icon: <User />, href: "/admin" },
+    { label: "Work", icon: <FolderClosed />, href: "/admin/work" },
+    { label: "Resume", icon: <Briefcase />, href: "/admin/resume" },
+    { label: "Card", icon: <CreditCard />, href: "/admin/card" },
+    {
+      label: "Analytics",
+      icon: <ChartNoAxesColumnIncreasing />,
+      href: "/admin/analytics",
+    },
   ];
 
   return (
     <div
       className={`border-[#191919] border bg-[#111111] ${
-        isOpen ? 'w-56' : 'w-20'
-      } m-3 px-3 py-5 rounded-xl shadow-sm transition-all duration-300 relative`}
+        isOpen ? "w-56" : "w-20"
+      } m-3 px-3 py-5 rounded-xl shadow-sm transition-all duration-300 relative min-h-screen flex flex-col justify-between`}
     >
       <div
         onClick={() => setIsOpen(!isOpen)}
@@ -55,8 +60,8 @@ function Sidebar() {
                 className={`flex items-center gap-5 p-3 rounded-md transition-all duration-300 group
                   ${
                     isActive
-                      ? 'bg-yellow-400 text-[#242424]'
-                      : 'hover:bg-yellow-400 hover:text-[#242424]'
+                      ? "bg-yellow-400 text-[#242424]"
+                      : "hover:bg-yellow-400 hover:text-[#242424]"
                   }`}
               >
                 <span className="group-hover:scale-105 transition-transform duration-200 text-xl">
@@ -65,8 +70,8 @@ function Sidebar() {
                 <span
                   className={`whitespace-nowrap text-[17px] font-manrope transition-all duration-300 font-semibold ${
                     isOpen
-                      ? 'opacity-100 translate-x-0'
-                      : 'opacity-0 -translate-x-2 pointer-events-none'
+                      ? "opacity-100 translate-x-0"
+                      : "opacity-0 -translate-x-2 pointer-events-none"
                   }`}
                 >
                   {item.label}
@@ -76,6 +81,26 @@ function Sidebar() {
           );
         })}
       </ul>
+
+ 
+      <div
+        className={`flex items-center gap-5 p-3 rounded-md transition-all duration-300 group cursor-pointer  hover:bg-[#2a2a2a] text-red-500`}
+        onClick={()=>logout(router.push)}
+        
+      >
+        <span className="group-hover:scale-105 transition-transform duration-200 text-xl">
+          <LogOut />
+        </span>
+        <span
+          className={`whitespace-nowrap text-[17px] font-manrope transition-all duration-300 font-semibold ${
+            isOpen
+              ? "opacity-100 translate-x-0"
+              : "opacity-0 -translate-x-2 pointer-events-none"
+          }`}
+        >
+          Logout
+        </span>
+      </div>
     </div>
   );
 }

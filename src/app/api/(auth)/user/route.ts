@@ -10,6 +10,9 @@ export async function GET() {
     }
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        image: true,
+      },
     });
     if (!user) {
       return NextResponse.json({ msg: "No User found" }, { status: 404 });
@@ -19,6 +22,12 @@ export async function GET() {
         id: user?.id,
         username: user?.username,
         email: user?.email,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        image: user?.image,
+        bio: user?.bio,
+        status: user?.status,
+        pronouns: user?.pronouns,
       },
       { status: 200 }
     );

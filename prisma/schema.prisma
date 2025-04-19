@@ -8,11 +8,35 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
+  id        Int               @id @default(autoincrement())
+  username  String            @unique
+  email     String            @unique
   password  String
-  image     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  image     ProfileImage?
+  bio       String?           @db.Text
+  firstName String?
+  lastName  String?
+  status    Status?           @default(open)
+  pronouns  personalPronouns? @default(prefer_not_to_say)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+model ProfileImage {
+  id     Int    @id @default(autoincrement())
+  url    String
+  userId Int    @unique
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+enum Status {
+  open
+  hiring
+}
+
+enum personalPronouns {
+  he_him
+  she_her
+  they_their
+  prefer_not_to_say
 }

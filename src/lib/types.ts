@@ -5,12 +5,21 @@ export type loginFormData = {
   email: string;
   password: string;
 };
-
+export type ProfileImageType = {
+  id: number;
+  url: string;
+  userId: number;
+}
 export type UserType = {
   id: number;
   username: string;
   email: string;
-  image: string | null;
+  image: ProfileImageType | null;
+  firstName: string;
+  lastName: string;
+  bio: string;
+  status: string;
+  pronouns: string;
 };
 export type useAppType = {
   claimedUsername: string;
@@ -21,4 +30,5 @@ export type useAppType = {
   login: (formData: loginFormData, redirectTo: (url: string) => void) => void;
   logout: (redirectTo: (url: string) => void) => void;
   fetchUser: () => void;
+  updateProfile: (formData: FormData) => void;
 };
