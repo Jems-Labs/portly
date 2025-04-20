@@ -22,7 +22,7 @@ function Sidebar() {
   const router = useRouter();
   const navItems = [
     { label: "Profile", icon: <User />, href: "/admin" },
-    { label: "Work", icon: <FolderClosed />, href: "/admin/work" },
+    { label: "Projects", icon: <FolderClosed />, href: "/admin/projects" },
     { label: "Resume", icon: <Briefcase />, href: "/admin/resume" },
     { label: "Card", icon: <CreditCard />, href: "/admin/card" },
     {

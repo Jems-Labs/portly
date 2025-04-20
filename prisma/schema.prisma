@@ -20,6 +20,7 @@ model User {
   pronouns    personalPronouns? @default(prefer_not_to_say)
   skills      Skill[]
   socialLinks SocialLink[]
+  projects    Project[]
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 }
@@ -44,6 +45,19 @@ model SocialLink {
   userId   Int
   user     User     @relation(fields: [userId], references: [id])
   platform Platform
+}
+
+model Project {
+  id         Int      @id @default(autoincrement())
+  name       String
+  tagline    String
+  projectUrl String?
+  logo       String
+  tools      String[]
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  videoUrl   String?
+  createdAt  DateTime @default(now())
 }
 
 enum Status {

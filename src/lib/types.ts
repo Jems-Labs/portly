@@ -45,5 +45,6 @@ export type useAppType = {
   updateProfile: (formData: FormData) => void;
   addTag: (tag: string) => void;
   deleteTag: (tagId: number) => void;
-  addSocialLink: (socialLinks: {key: string, url: string}[]) => void
+  addSocialLink: (socialLinks: {key: string, url: string}[]) => void;
+  addProject: (formData: FormData) => void;
 };

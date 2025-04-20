@@ -36,6 +36,8 @@ export const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         toast.success("Login successful");
         set({ user: res.data });
+        const { fetchUser } = useApp.getState();
+        fetchUser();
         redirectTo("/admin");
       }
     } catch (error) {
@@ -127,6 +129,21 @@ export const useApp = create<useAppType>((set) => ({
       }
     } catch (error) {
       toast.error("Failed to add social link. Please try again.");
+    }
+  },
+
+  addProject: async (formData) => {
+    try {
+      const res = await axios.post("/api/user/projects", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+      }
+    } catch (error) {
+      toast.error("Failed to add project. Please try again.");
     }
   }
 }));
