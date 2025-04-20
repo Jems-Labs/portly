@@ -110,7 +110,7 @@ export async function POST(req: Request) {
       { msg: "Tag added successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

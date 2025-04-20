@@ -20,6 +20,16 @@ export type socialLinkType = {
   platform: string;
   url: string;
 }
+export type projectType = {
+  id: number;
+  name: string;
+  tagline: string;
+  projectUrl: string;
+  logo: string;
+  tools: string[];
+  userId: number;
+  videoUrl: string;
+}
 export type UserType = {
   id: number;
   username: string;
@@ -31,7 +41,8 @@ export type UserType = {
   status: string;
   pronouns: string;
   skills: skillType[];
-  socialLinks: socialLinkType[]
+  socialLinks: socialLinkType[];
+  projects: projectType[];
 };
 export type useAppType = {
   claimedUsername: string;
@@ -47,4 +58,5 @@ export type useAppType = {
   deleteTag: (tagId: number) => void;
   addSocialLink: (socialLinks: {key: string, url: string}[]) => void;
   addProject: (formData: FormData) => void;
+  deleteProject: (projectId: number) => void;
 };

@@ -14,6 +14,7 @@ export async function GET() {
         image: true,
         skills: true,
         socialLinks: true,
+        projects: true
       },
     });
     if (!user) {
@@ -32,6 +33,7 @@ export async function GET() {
         pronouns: user?.pronouns,
         skills: user?.skills,
         socialLinks: user?.socialLinks,
+        projects: user?.projects,
       },
       { status: 200 }
     );

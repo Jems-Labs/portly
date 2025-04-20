@@ -141,9 +141,23 @@ export const useApp = create<useAppType>((set) => ({
       });
       if (res.status === 200) {
         toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to add project. Please try again.");
+    }
+  },
+  deleteProject: async (id) => {
+    try {
+      const res = await axios.delete(`/api/user/projects?projectId=${id}`);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch {
+      toast.error("Failed to delete project. Please try again.");
     }
   }
 }));
