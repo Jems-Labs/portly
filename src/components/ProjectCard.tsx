@@ -1,12 +1,12 @@
 "use client"
 import { projectType } from "@/lib/types";
-import { ExternalLink, Trash, Video } from "lucide-react";
+import { ExternalLink, Pencil, Trash, Video } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { useApp } from "@/stores/useApp";
 
-function ProjectCard({ project, isDelete }: { project: projectType, isDelete: Boolean }) {
+function ProjectCard({ project, isDelete, isEdit }: { project: projectType, isDelete: Boolean, isEdit: Boolean }) {
     const { deleteProject } = useApp();
     return (
         <div className="rounded-lg border overflow-hidden bg-[#0D0D0D]">
@@ -29,7 +29,7 @@ function ProjectCard({ project, isDelete }: { project: projectType, isDelete: Bo
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4 my-4 md:my-0">
+                    <div className="flex items-center gap-2 my-4 md:my-0">
                         <Link
                             href={project.projectUrl}
                             target="_blank"
@@ -43,12 +43,19 @@ function ProjectCard({ project, isDelete }: { project: projectType, isDelete: Bo
                             className="text-gray-400 hover:text-white transition-colors duration-200 border px-2 py-1 rounded-md">
                             <Video size={20} />
                         </Link>
+                        {isEdit && (
+                            <Link
+                                href={`/admin/projects/${project.id}`}
+                                className="text-gray-400 hover:text-white transition-colors duration-200 border px-2 py-1 rounded-md">
+                                <Pencil size={20} />
+                            </Link>
+                        )}
+
 
                         {isDelete && (
                             <div
                                 className="text-red-600 hover:text-red-500 transition-colors duration-200 cursor-pointer border px-2 py-1 rounded-md"
-                                onClick={() => deleteProject(project.id)}
-                            >
+                                onClick={() => deleteProject(project.id)}>
                                 <Trash size={20} />
                             </div>
                         )}
@@ -56,7 +63,7 @@ function ProjectCard({ project, isDelete }: { project: projectType, isDelete: Bo
 
                 </div>
 
-                <div className="mb-4">
+                <div>
                     <p className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide my-2">Tools</p>
                     <div className="flex flex-wrap gap-2">
                         {project.tools.map((tool, index) => (

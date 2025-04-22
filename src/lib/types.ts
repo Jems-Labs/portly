@@ -1,3 +1,5 @@
+import { StringValidation } from "zod";
+
 export type signupFormData = {
   username: string;
 } & loginFormData;
@@ -30,6 +32,7 @@ export type projectType = {
   userId: number;
   videoUrl: string;
 }
+
 export type UserType = {
   id: number;
   username: string;
@@ -59,4 +62,6 @@ export type useAppType = {
   addSocialLink: (socialLinks: {key: string, url: string}[]) => void;
   addProject: (formData: FormData) => void;
   deleteProject: (projectId: number) => void;
+  getProject: (projectId: string) => Promise<projectType>;
+  updateProject: (formData: FormData, projectId: number | undefined) => void;
 };

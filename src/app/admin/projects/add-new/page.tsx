@@ -89,7 +89,7 @@ function AddNew() {
     data.append("projectUrl", formData.projectUrl);
     data.append("videoUrl", formData.videoUrl);
     if (formData.logo) data.append("logo", formData.logo);
-    
+
     data.append("tools", JSON.stringify(formData.tools));
     setIsAdding(true);
     await addProject(data);
@@ -119,7 +119,7 @@ function AddNew() {
           <Input
             id="name"
             placeholder="Portly"
-            className="w-1/2 mt-2"
+            className="w-1/2 mt-2 bg-[#0D0D0D]"
             onChange={handleChange}
           />
         </div>
@@ -131,7 +131,7 @@ function AddNew() {
           <Input
             id="tagline"
             placeholder="A platform for founders and creators."
-            className="w-1/2 mt-2"
+            className="w-1/2 mt-2 bg-[#0D0D0D]"
             onChange={handleChange}
           />
         </div>
@@ -143,7 +143,7 @@ function AddNew() {
           <Input
             id="projectUrl"
             placeholder="portly.com/"
-            className="w-1/2 mt-2"
+            className="w-1/2 mt-2 bg-[#0D0D0D]"
             onChange={handleChange}
           />
         </div>
@@ -155,7 +155,7 @@ function AddNew() {
           <Input
             id="videoUrl"
             placeholder="youtube.com/video-link"
-            className="w-1/2 mt-2"
+            className="w-1/2 mt-2 bg-[#0D0D0D]"
             onChange={handleChange}
           />
         </div>
@@ -166,7 +166,7 @@ function AddNew() {
               <Label className="text-sm font-semibold">Logo</Label>
               <Button
                 variant="outline"
-                className="rounded-lg"
+                className="rounded-lg "
                 onClick={openFile}
               >
                 <Upload /> Upload
@@ -206,7 +206,7 @@ function AddNew() {
           <div className="flex gap-3 items-center flex-wrap">
             <Input
               id="tools"
-              className="w-[300px]"
+              className="w-[300px] bg-[#0D0D0D]"
               value={toolInput}
               onChange={(e) => setToolInput(e.target.value)}
             />

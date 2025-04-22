@@ -30,7 +30,7 @@ function Projects() {
           <div className="grid grid-cols-1 gap-6">
             {user.projects.map((project: projectType) => (
               <div key={project.id}>
-                <ProjectCard project={project} isDelete={true} />
+                <ProjectCard project={project} isDelete={true} isEdit={true}/>
               </div>
             ))}
           </div>

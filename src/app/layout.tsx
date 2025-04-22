@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Manrope, Playfair_Display } from "next/font/google"; 
+import { Manrope, Playfair_Display } from "next/font/google";
 
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { GlobalStateInitializer } from "@/components/GlobalStateInitializer";
+import QueryProvider from "@/components/QueryProvider";
 
 
 const manrope = Manrope({
@@ -30,8 +31,11 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${manrope.variable} ${playfair.variable} font-sans`}>
         <GlobalStateInitializer />
-        {children}
-        <Toaster position="top-center"/>
+        <QueryProvider>
+          {children}
+        </QueryProvider>
+
+        <Toaster position="top-center" />
       </body>
     </html>
   );

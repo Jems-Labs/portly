@@ -74,7 +74,7 @@ function Admin() {
     formData.append("bio", bio);
     formData.append("pronouns", selectedPronouns);
     formData.append("status", selectedStatus);
-    if (file) formData.append("image", file);;
+    if (file) formData.append("image", file);
 
     await updateProfile(formData);
     setIsLoading(false);

@@ -159,5 +159,35 @@ export const useApp = create<useAppType>((set) => ({
     } catch {
       toast.error("Failed to delete project. Please try again.");
     }
+  },
+  getProject: async (projectId) => {
+    try {
+      const res = await axios.get(`/api/user/projects?projectId=${projectId}`);
+      if (res.status === 200) {
+        return res.data;
+      }
+    } catch (error) {
+      return null;
+    }
+  },
+  updateProject: async (formData, projectId) => {
+    try {
+      const res = await axios.put(
+        `/api/user/projects?projectId=${projectId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch {
+      toast.error("Failed to update project. Please try again.");
+    }
   }
 }));
