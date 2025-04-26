@@ -8,21 +8,25 @@ datasource db {
 }
 
 model User {
-  id          Int               @id @default(autoincrement())
-  username    String            @unique
-  email       String            @unique
-  password    String
-  image       ProfileImage?
-  bio         String?           @db.Text
-  firstName   String?
-  lastName    String?
-  status      Status?           @default(open)
-  pronouns    personalPronouns? @default(prefer_not_to_say)
-  skills      Skill[]
-  socialLinks SocialLink[]
-  projects    Project[]
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  id                  Int                  @id @default(autoincrement())
+  username            String               @unique
+  email               String               @unique
+  password            String
+  image               ProfileImage?
+  bio                 String?              @db.Text
+  firstName           String?
+  lastName            String?
+  status              Status?              @default(open)
+  pronouns            personalPronouns?    @default(prefer_not_to_say)
+  skills              Skill[]
+  socialLinks         SocialLink[]
+  projects            Project[]
+  education           Education[]
+  workExperience      WorkExperience[]
+  volunteerExperience VolunteerExperience[]
+  certifications      Certification[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
 }
 
 model ProfileImage {
@@ -58,6 +62,59 @@ model Project {
   user       User     @relation(fields: [userId], references: [id])
   videoUrl   String?
   createdAt  DateTime @default(now())
+}
+
+model Education {
+  id           Int    @id @default(autoincrement())
+  school       String
+  degree       String
+  fieldOfStudy String
+  startDate    Int
+  endDate      Int
+  userId       Int
+  user         User   @relation(fields: [userId], references: [id])
+}
+
+model WorkExperience {
+  id                 Int     @id @default(autoincrement())
+  company            String
+  companyWebsite     String?
+  title              String
+  description        String?
+  fromMonth          String
+  fromYear           Int
+  isCurrentlyWorking Boolean @default(false)
+  toMonth            String?
+  toYear             Int?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model VolunteerExperience {
+  id                 Int     @id @default(autoincrement())
+  role               String
+  organization       String
+  fromMonth          String
+  fromYear           Int
+  isCurrentlyWorking Boolean @default(false)
+  toMonth            String?
+  toYear             Int?
+  userId             Int
+  user               User    @relation(fields: [userId], references: [id])
+  description        String?
+}
+
+model Certification {
+  id              Int     @id @default(autoincrement())
+  name            String
+  issuedBy        String
+  issueMonth      String
+  issueYear       Int
+  expirationMonth String?
+  expirationYear  Int?
+  userId          Int
+  user            User    @relation(fields: [userId], references: [id])
 }
 
 enum Status {

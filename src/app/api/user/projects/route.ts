@@ -117,7 +117,6 @@ export async function GET(req: Request) {
     const project = await prisma.project.findUnique({
       where: { id: prasedProjectId, userId: user.id },
     });
-    console.log(project);
     if (!project) {
       return NextResponse.json({ msg: "Project Not Found" }, { status: 404 });
     }

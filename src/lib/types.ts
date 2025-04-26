@@ -1,5 +1,3 @@
-import { StringValidation } from "zod";
-
 export type signupFormData = {
   username: string;
 } & loginFormData;
@@ -47,6 +45,18 @@ export type UserType = {
   socialLinks: socialLinkType[];
   projects: projectType[];
 };
+
+export type ExperienceType =  {
+  company: string;
+  companyWebsite: string;
+  title: string;
+  description: string;
+  fromMonth: string;
+  fromYear: string;
+  toMonth: string;
+  toYear: string;
+  isCurrentlyWorking: boolean;
+}
 export type useAppType = {
   claimedUsername: string;
   setClaimedUsername: (username: string) => void;
@@ -64,4 +74,5 @@ export type useAppType = {
   deleteProject: (projectId: number) => void;
   getProject: (projectId: string) => Promise<projectType>;
   updateProject: (formData: FormData, projectId: number | undefined) => void;
+  addExperience: (formData: ExperienceType) => void;
 };

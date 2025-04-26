@@ -48,3 +48,23 @@ export const platforms = [
   { name: "Threads", key: "THREADS", svg: "/icons/threads.png" },
   { name: "Gumroad", key: "GUMROAD", svg: "/icons/gumroad.png" },
 ];
+export const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const currentYear = new Date().getFullYear();
+
+export const years = Array.from({ length: currentYear - 1970 + 1 }, (_, i) =>
+  (currentYear - i).toString()
+);

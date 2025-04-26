@@ -12,6 +12,29 @@ export const signupSchema = z.object({
   password: z.string(),
 });
 export const loginSchema = z.object({
-  email: z.string().email({message: "Please enter a valid email address"}),
-  password: z.string()
-})
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  password: z.string(),
+});
+
+export const addExperience = z.object({
+  company: z.string().min(1, { message: "Company name is required" }),
+  title: z.string().min(1, { message: "Job title is required" }),
+  companyWebsite: z.string().url({ message: "Invalid URL" }).optional(),
+  description: z
+    .string()
+    .min(1, { message: "Description is required" })
+    .optional(),
+  fromMonth: z.string().min(1, { message: "Start month is required" }),
+
+  fromYear: z
+  .string()
+  .min(1, { message: "Start year is required" })
+  .refine((val) => !isNaN(Number(val)), { message: "Start year must be a number" })
+  .transform((val) => parseInt(val)),
+  toMonth: z.string().optional(),
+  toYear: z
+    .string()
+    .transform((val) => parseInt(val)).optional(),
+
+  isCurrentlyWorking: z.boolean().optional(),
+});

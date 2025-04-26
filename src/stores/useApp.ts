@@ -189,5 +189,28 @@ export const useApp = create<useAppType>((set) => ({
     } catch {
       toast.error("Failed to update project. Please try again.");
     }
-  }
+  },
+  addExperience: async (formData) => {
+    try {
+      const res = await axios.post("/api/user/experience", formData);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to add experience. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
 }));
