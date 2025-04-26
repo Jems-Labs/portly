@@ -38,3 +38,10 @@ export const addExperience = z.object({
 
   isCurrentlyWorking: z.boolean().optional(),
 });
+export const addEducation = z.object({
+  school: z.string().min(1, { message: "School name is required" }),
+  degree: z.string().min(1, { message: "Degree is required" }),
+  fieldOfStudy: z.string(),
+  startDate: z.string(),
+  endDate: z.string(),
+})

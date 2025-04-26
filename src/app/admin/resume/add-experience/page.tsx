@@ -114,9 +114,8 @@ function AddExperience() {
             <select
               value={formData.fromMonth}
               onChange={(e) => handleSelectChange("fromMonth", e.target.value)}
-              className="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-[#0D0D0D] px-3 py-2 cursor-pointer"
+              className="h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring cursor-pointer"
             >
-              <option value="">From Month</option>
               {months.map((month, index) => (
                 <option key={index} value={month}>
                   {month}
@@ -126,9 +125,8 @@ function AddExperience() {
             <select
               value={formData.fromYear}
               onChange={(e) => handleSelectChange("fromYear", e.target.value)}
-              className="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-[#0D0D0D] px-3 py-2 cursor-pointer"
+              className="h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring cursor-pointer"
             >
-              <option value="">From Year</option>
               {years.map((year, index) => (
                 <option key={index} value={year}>
                   {year}
@@ -147,9 +145,8 @@ function AddExperience() {
               value={formData.toMonth}
               onChange={(e) => handleSelectChange("toMonth", e.target.value)}
               disabled={formData.isCurrentlyWorking}
-              className="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-[#0D0D0D] px-3 py-2 cursor-pointer"
+              className="h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring cursor-pointer"
             >
-              <option value="">To Month</option>
               {months.map((month, index) => (
                 <option key={index} value={month}>
                   {month}
@@ -160,9 +157,8 @@ function AddExperience() {
               value={formData.toYear}
               onChange={(e) => handleSelectChange("toYear", e.target.value)}
               disabled={formData.isCurrentlyWorking}
-              className="flex w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-[#0D0D0D] px-3 py-2 cursor-pointer"
+              className="h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring cursor-pointer"
             >
-              <option value="">To Year</option>
               {years.map((year, index) => (
                 <option key={index} value={year}>
                   {year}

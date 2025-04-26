@@ -19,7 +19,7 @@ export type socialLinkType = {
   id: number;
   platform: string;
   url: string;
-}
+};
 export type projectType = {
   id: number;
   name: string;
@@ -29,7 +29,7 @@ export type projectType = {
   tools: string[];
   userId: number;
   videoUrl: string;
-}
+};
 
 export type UserType = {
   id: number;
@@ -44,9 +44,30 @@ export type UserType = {
   skills: skillType[];
   socialLinks: socialLinkType[];
   projects: projectType[];
+  workExperience: ExperienceType[];
+  education: EducationType[];
+  certifications: CertificationType[];
 };
+export type ExperienceType = {
+  id: number;
+} & AddExperienceType;
+export type EducationType = {
+  id: number;
+} & AddEducationType;
+export type CertificationType = {
+  id: number;
+} & AddCertificationType;
 
-export type ExperienceType =  {
+
+export type AddCertificationType = {
+  name: String;
+  issuedBy: String;
+  issueMonth: String;
+  issueYear: String;
+  expirationMonth: String;
+  expirationYear: String | number;
+};
+export type AddExperienceType = {
   company: string;
   companyWebsite: string;
   title: string;
@@ -56,7 +77,14 @@ export type ExperienceType =  {
   toMonth: string;
   toYear: string;
   isCurrentlyWorking: boolean;
-}
+};
+export type AddEducationType = {
+  school: string;
+  degree: string;
+  fieldOfStudy: string;
+  startDate: string;
+  endDate: string;
+};
 export type useAppType = {
   claimedUsername: string;
   setClaimedUsername: (username: string) => void;
@@ -69,10 +97,11 @@ export type useAppType = {
   updateProfile: (formData: FormData) => void;
   addTag: (tag: string) => void;
   deleteTag: (tagId: number) => void;
-  addSocialLink: (socialLinks: {key: string, url: string}[]) => void;
+  addSocialLink: (socialLinks: { key: string; url: string }[]) => void;
   addProject: (formData: FormData) => void;
   deleteProject: (projectId: number) => void;
   getProject: (projectId: string) => Promise<projectType>;
   updateProject: (formData: FormData, projectId: number | undefined) => void;
-  addExperience: (formData: ExperienceType) => void;
+  addExperience: (formData: AddExperienceType) => void;
+  addEducation: (formData: AddEducationType) => void;
 };

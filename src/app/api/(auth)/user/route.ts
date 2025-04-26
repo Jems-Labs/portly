@@ -14,7 +14,11 @@ export async function GET() {
         image: true,
         skills: true,
         socialLinks: true,
-        projects: true
+        projects: true,
+        education: true,
+        workExperience: true,
+        certifications: true,
+        volunteerExperience: true
       },
     });
     if (!user) {
@@ -34,6 +38,10 @@ export async function GET() {
         skills: user?.skills,
         socialLinks: user?.socialLinks,
         projects: user?.projects,
+        education: user?.education,
+        workExperience: user?.workExperience,
+        certifications: user?.certifications,
+        volunteerExperience: user?.volunteerExperience,
       },
       { status: 200 }
     );

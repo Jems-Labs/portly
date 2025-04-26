@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     const validatedData = addExperience.safeParse(data);
     if (!validatedData.success) {
       return NextResponse.json(
-        { msg: validatedData.error.flatten().fieldErrors },
+        { msg: "Some Fields are missing" },
         { status: 422 }
       );
     }

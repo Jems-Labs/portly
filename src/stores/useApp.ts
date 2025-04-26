@@ -213,4 +213,27 @@ export const useApp = create<useAppType>((set) => ({
       toast.error(message);
     }
   },
+  addEducation: async (formData) => {
+    try {
+      const res = await axios.post("/api/user/education", formData);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to add education. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
 }));
