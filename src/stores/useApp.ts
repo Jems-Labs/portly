@@ -297,4 +297,62 @@ export const useApp = create<useAppType>((set) => ({
       toast.error(message);
     }
   },
+  fetchEducation: async (eduId) => {
+    try {
+      const res = await axios.get(`/api/user/education?eduId=${eduId}`);
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
+  },
+  editEducation: async (formData, eduId) => {
+    try {
+      const res = await axios.put(`/api/user/education?eduId=${eduId}`, formData);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to edit education. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
+  deleteEducation: async (eduId) => {
+    try {
+      const res = await axios.delete(`/api/user/education?eduId=${eduId}`);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to delete education. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
 }));

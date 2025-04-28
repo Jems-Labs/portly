@@ -6,19 +6,8 @@ import { Button } from "./ui/button";
 import { ChevronDown, ChevronUp, Pen, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/stores/useApp";
+import { ExperienceType } from "@/lib/types";
 
-interface ExperienceType {
-    id: number;
-    company: string;
-    companyWebsite: string;
-    title: string;
-    description: string;
-    fromMonth: string;
-    fromYear: string;
-    toMonth: string | null;
-    toYear: string | null;
-    isCurrentlyWorking: boolean;
-}
 
 function ExperienceCard({
     experience,
@@ -67,7 +56,7 @@ function ExperienceCard({
                             variant="ghost"
                             className="hover:bg-accent rounded-full transition-transform border"
                             onClick={() =>
-                                router.push(`/admin/resume/experience/${experience.id}/edit`)
+                                router.push(`/admin/resume/experience/${experience.id}`)
                             }
                         >
                             <Pen className="h-4 w-4" />

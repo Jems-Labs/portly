@@ -51,9 +51,11 @@ export type UserType = {
 export type ExperienceType = {
   id: number;
 } & AddExperienceType;
+
 export type EducationType = {
   id: number;
 } & AddEducationType;
+
 export type CertificationType = {
   id: number;
 } & AddCertificationType;
@@ -106,4 +108,7 @@ export type useAppType = {
   fetchExperience: (expId: number | string) => Promise<ExperienceType | null>;
   editExperience: (formData: AddExperienceType, expId: number | string) => void;
   deleteExperience: (expId: number | string) => void;
+  fetchEducation: (eduId: number | string) => Promise<EducationType | null>;
+  editEducation: (formData: AddEducationType, eduId: number | string) => void;
+  deleteEducation: (eduId: number | string) => void;
 };

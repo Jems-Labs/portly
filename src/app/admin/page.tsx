@@ -95,7 +95,6 @@ function Admin() {
   }
   return (
     <div className="px-5">
-      {/* Basic Info */}
       <div>
         <div className="flex items-center gap-2 py-3">
           <CircleUser size={17} />

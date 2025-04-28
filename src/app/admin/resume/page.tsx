@@ -1,17 +1,15 @@
 "use client"
-import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 
-import { Briefcase, TrendingUpDownIcon } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { Briefcase } from 'lucide-react'
 import React from 'react'
 import AddNewPop from './_components/AddNewPop'
 import { Label } from '@/components/ui/label'
 import { useApp } from '@/stores/useApp'
 import ExperienceCard from '@/components/ExperienceCard'
+import EducationCard from '@/components/EducationCard'
 
 function Resume() {
-    const router = useRouter();
     const { user } = useApp();
 
     return (
@@ -62,8 +60,30 @@ function Resume() {
                         </div>
                     )}
                 </div>
-                <div className='flex items-center justify-between'>
+                <div>
                     <Label className='text-xl'>Education</Label>
+                    {user?.education?.length ? (
+                        <div className="grid grid-cols-1 gap-3 mt-4">
+                            {user.education
+                                .slice()
+                                .sort((a, b) => {
+                                    if (Number(b.startDate) !== Number(a.startDate)) {
+                                        return Number(b.endDate) - Number(a.endDate);
+                                    }
+                                    return 0;
+                                })
+                                .map((education, index) => (
+                                    <div key={index}>
+                                        <EducationCard education={education} isDelete={true} isEdit={true} />
+                                    </div>
+                                ))}
+                        </div>
+                    ) : (
+                        <div className="text-center text-muted-foreground mt-10">
+                            No education found.
+                        </div>
+                    )}
+
                 </div>
                 <div className='flex items-center justify-between'>
                     <Label className='text-xl'>Certification</Label>
