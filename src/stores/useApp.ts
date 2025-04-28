@@ -236,4 +236,65 @@ export const useApp = create<useAppType>((set) => ({
       toast.error(message);
     }
   },
+  fetchExperience: async (expId) => {
+    try {
+      const res = await axios.get(`/api/user/experience?expId=${expId}`);
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return null;
+      }
+    } catch {
+      return null;
+    }
+  },
+  editExperience: async (formData, expId) => {
+    try {
+      const res = await axios.put(
+        `/api/user/experience?expId=${expId}`,
+        formData
+      );
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to edit experience. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
+  deleteExperience: async (expId) => {
+    try {
+      const res = await axios.delete(`/api/user/experience?expId=${expId}`);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to delete experience. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
 }));

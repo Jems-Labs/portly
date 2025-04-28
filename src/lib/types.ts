@@ -58,7 +58,6 @@ export type CertificationType = {
   id: number;
 } & AddCertificationType;
 
-
 export type AddCertificationType = {
   name: String;
   issuedBy: String;
@@ -104,4 +103,7 @@ export type useAppType = {
   updateProject: (formData: FormData, projectId: number | undefined) => void;
   addExperience: (formData: AddExperienceType) => void;
   addEducation: (formData: AddEducationType) => void;
+  fetchExperience: (expId: number | string) => Promise<ExperienceType | null>;
+  editExperience: (formData: AddExperienceType, expId: number | string) => void;
+  deleteExperience: (expId: number | string) => void;
 };
