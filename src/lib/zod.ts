@@ -27,14 +27,17 @@ export const addExperience = z.object({
   fromMonth: z.string().min(1, { message: "Start month is required" }),
 
   fromYear: z
-  .string()
-  .min(1, { message: "Start year is required" })
-  .refine((val) => !isNaN(Number(val)), { message: "Start year must be a number" })
-  .transform((val) => parseInt(val)),
+    .string()
+    .min(1, { message: "Start year is required" })
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Start year must be a number",
+    })
+    .transform((val) => parseInt(val)),
   toMonth: z.string().optional(),
   toYear: z
     .string()
-    .transform((val) => parseInt(val)).optional(),
+    .transform((val) => parseInt(val))
+    .optional(),
 
   isCurrentlyWorking: z.boolean().optional(),
 });
@@ -44,15 +47,16 @@ export const addEducation = z.object({
   fieldOfStudy: z.string(),
   startDate: z.string(),
   endDate: z.string(),
-})
-
+});
 
 export const addCertification = z.object({
   name: z.string().min(1, { message: "Certification name is required" }),
-  issuedBy: z.string().min(1, { message: "Certification authority is required" }),
+  issuedBy: z
+    .string()
+    .min(1, { message: "Certification authority is required" }),
   certificationUrl: z.string().url({ message: "Invalid URL" }).optional(),
   issueMonth: z.string().min(1, { message: "Issue month is required" }),
   issueYear: z.string().min(1, { message: "Issue year is required" }),
   expirationMonth: z.string().optional(),
   expirationYear: z.string().optional(),
-})
+});

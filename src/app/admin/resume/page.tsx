@@ -8,10 +8,11 @@ import { Label } from '@/components/ui/label'
 import { useApp } from '@/stores/useApp'
 import ExperienceCard from '@/components/ExperienceCard'
 import EducationCard from '@/components/EducationCard'
+import CertificationCard from '@/components/CertificationCard'
 
 function Resume() {
     const { user } = useApp();
-console.log(user)
+
     return (
         <div className="p-6 min-h-screen">
             <div className='flex justify-between items-center px-5 py-3'>
@@ -85,8 +86,22 @@ console.log(user)
                     )}
 
                 </div>
-                <div className='flex items-center justify-between'>
+                <div>
                     <Label className='text-xl'>Certification</Label>
+                    {user?.certifications?.length ? (
+                        <div className="grid grid-cols-1 gap-3 mt-4">
+                            {user.certifications
+                                .map((certificate, index) => (
+                                    <div key={index}>
+                                        <CertificationCard certificate={certificate} isEdit={true} isDelete={true} />
+                                    </div>
+                                ))}
+                        </div>
+                    ) : (
+                        <div className="text-center text-muted-foreground mt-10">
+                            No certificate found.
+                        </div>
+                    )}
                 </div>
                 <div className='flex items-center justify-between'>
                     <Label className='text-xl'>Volunteering</Label>

@@ -311,7 +311,10 @@ export const useApp = create<useAppType>((set) => ({
   },
   editEducation: async (formData, eduId) => {
     try {
-      const res = await axios.put(`/api/user/education?eduId=${eduId}`, formData);
+      const res = await axios.put(
+        `/api/user/education?eduId=${eduId}`,
+        formData
+      );
       if (res.status === 200) {
         toast.success(res.data.msg);
         const { fetchUser } = useApp.getState();
@@ -365,6 +368,69 @@ export const useApp = create<useAppType>((set) => ({
       }
     } catch (error) {
       let message = "Failed to add certification. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
+  fetchCertificate: async (cerId) => {
+    try {
+      const res = await axios.get(`/api/user/certification?cerId=${cerId}`);
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return null;
+      }
+    } catch {
+      return null;
+    }
+  },
+  editCertificate: async (formData, cerId) => {
+    try {
+      const res = await axios.put(
+        `/api/user/certification?cerId=${cerId}`,
+        formData
+      );
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to edit certification. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
+  deleteCertificate: async (cerId) => {
+    try {
+      const res = await axios.delete(
+        `/api/user/certification?cerId=${cerId}`
+      );
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to delete certification. Please try again.";
 
       if (axios.isAxiosError(error)) {
         message =
