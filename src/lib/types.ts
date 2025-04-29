@@ -62,6 +62,7 @@ export type CertificationType = {
 
 export type AddCertificationType = {
   name: String;
+  certificationUrl: String;
   issuedBy: String;
   issueMonth: String;
   issueYear: String;
@@ -111,4 +112,5 @@ export type useAppType = {
   fetchEducation: (eduId: number | string) => Promise<EducationType | null>;
   editEducation: (formData: AddEducationType, eduId: number | string) => void;
   deleteEducation: (eduId: number | string) => void;
+  addCertification: (formData: AddCertificationType) => void;
 };

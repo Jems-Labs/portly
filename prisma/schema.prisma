@@ -108,6 +108,7 @@ model VolunteerExperience {
 model Certification {
   id              Int     @id @default(autoincrement())
   name            String
+  certificationUrl String?
   issuedBy        String
   issueMonth      String
   issueYear       Int

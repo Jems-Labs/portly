@@ -11,7 +11,7 @@ import EducationCard from '@/components/EducationCard'
 
 function Resume() {
     const { user } = useApp();
-
+console.log(user)
     return (
         <div className="p-6 min-h-screen">
             <div className='flex justify-between items-center px-5 py-3'>

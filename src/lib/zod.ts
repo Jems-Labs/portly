@@ -45,3 +45,14 @@ export const addEducation = z.object({
   startDate: z.string(),
   endDate: z.string(),
 })
+
+
+export const addCertification = z.object({
+  name: z.string().min(1, { message: "Certification name is required" }),
+  issuedBy: z.string().min(1, { message: "Certification authority is required" }),
+  certificationUrl: z.string().url({ message: "Invalid URL" }).optional(),
+  issueMonth: z.string().min(1, { message: "Issue month is required" }),
+  issueYear: z.string().min(1, { message: "Issue year is required" }),
+  expirationMonth: z.string().optional(),
+  expirationYear: z.string().optional(),
+})
