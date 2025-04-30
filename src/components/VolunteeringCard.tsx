@@ -21,11 +21,11 @@ function VolunteeringCard({
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    // const { deleteExperience } = useApp();
+    const { deleteVolunteerExperience } = useApp();
 
     const handleDelete = async (id: number) => {
         setIsLoading(true);
-        // await deleteExperience(id);
+        await deleteVolunteerExperience(id);
         setIsLoading(false);
     };
     return (
@@ -55,7 +55,7 @@ function VolunteeringCard({
                             variant="ghost"
                             className="hover:bg-accent rounded-full transition-transform border"
                             onClick={() =>
-                                router.push(`/admin/resume/experience/${experience.id}`)
+                                router.push(`/admin/resume/volunteering/${experience.id}`)
                             }
                         >
                             <Pen className="h-4 w-4" />

@@ -104,7 +104,6 @@ export type VolunteeringType = {
   id: number;
 } & AddVoluteeringType;
 
-
 export type useAppType = {
   claimedUsername: string;
   setClaimedUsername: (username: string) => void;
@@ -140,4 +139,12 @@ export type useAppType = {
   ) => void;
   deleteCertificate: (cerId: number | string) => void;
   addVolunteering: (formData: AddVoluteeringType) => void;
+  fetchVolunteerExperience: (
+    id: string | number
+  ) => Promise<VolunteeringType | null>;
+  editVolunteerExperience: (
+    formData: AddVoluteeringType,
+    id: string | number
+  ) => void;
+  deleteVolunteerExperience: (id: string | number) => void;
 };

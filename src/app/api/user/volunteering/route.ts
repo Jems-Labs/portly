@@ -57,7 +57,7 @@ export async function POST(req: Request) {
       { msg: "Volunteer experience added successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -179,7 +179,7 @@ export async function PUT(req: Request) {
       { msg: "Volunteer Experience Updated successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch  {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -230,7 +230,7 @@ export async function DELETE(req: Request) {
       { msg: "Volunteer Experience Deleted successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

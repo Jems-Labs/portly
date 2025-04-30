@@ -465,4 +465,65 @@ export const useApp = create<useAppType>((set) => ({
       toast.error(message);
     }
   },
+  fetchVolunteerExperience: async (id) => {
+    try {
+      const res = await axios.get(`/api/user/volunteering?volId=${id}`);
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
+  },
+  editVolunteerExperience: async (formData, id) => {
+    try {
+      const res = await axios.put(
+        `/api/user/volunteering?volId=${id}`,
+        formData
+      );
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to edit volunteer experience. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
+  deleteVolunteerExperience: async (id) => {
+    try {
+      const res = await axios.delete(`/api/user/volunteering?volId=${id}`);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+        const { fetchUser } = useApp.getState();
+        fetchUser();
+      }
+    } catch (error) {
+      let message = "Failed to delete volunteer experience. Please try again.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.msg ||
+          error.response?.data?.error ||
+          error.message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
+    }
+  },
 }));
