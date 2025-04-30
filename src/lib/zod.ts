@@ -60,3 +60,23 @@ export const addCertification = z.object({
   expirationMonth: z.string().optional(),
   expirationYear: z.string().optional(),
 });
+export const addVolunteer = z.object({
+  role: z.string().min(1, { message: "Role is required" }),
+  organization: z.string().min(1, { message: "Organization name is required" }),
+  organizationWebsite: z.string().url({ message: "Invalid URL" }).optional(),
+  fromMonth: z.string().min(1, { message: "Start month is required" }),
+  fromYear: z
+    .string()
+    .min(1, { message: "Start year is required" })
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Start year must be a number",
+    })
+    .transform((val) => parseInt(val)),
+  toMonth: z.string().optional(),
+  toYear: z
+    .string()
+    .transform((val) => parseInt(val))
+    .optional(),
+  isCurrentlyWorking: z.boolean().optional(),
+  description: z.string().optional(),
+})

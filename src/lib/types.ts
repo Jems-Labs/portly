@@ -47,6 +47,7 @@ export type UserType = {
   workExperience: ExperienceType[];
   education: EducationType[];
   certifications: CertificationType[];
+  volunteerExperience: VolunteeringType[];
 };
 export type ExperienceType = {
   id: number;
@@ -87,6 +88,23 @@ export type AddEducationType = {
   startDate: string;
   endDate: string;
 };
+
+export type AddVoluteeringType = {
+  role: string;
+  organization: string;
+  organizationWebsite: string;
+  fromMonth: string;
+  fromYear: string | number;
+  isCurrentlyWorking: boolean;
+  toMonth: string;
+  toYear: string | number;
+  description: string;
+};
+export type VolunteeringType = {
+  id: number;
+} & AddVoluteeringType;
+
+
 export type useAppType = {
   claimedUsername: string;
   setClaimedUsername: (username: string) => void;
@@ -113,7 +131,13 @@ export type useAppType = {
   editEducation: (formData: AddEducationType, eduId: number | string) => void;
   deleteEducation: (eduId: number | string) => void;
   addCertification: (formData: AddCertificationType) => void;
-  fetchCertificate: (cerId: string | number) => Promise<CertificationType | null>;
-  editCertificate: (formData: AddCertificationType, cerId: number | string) => void;
+  fetchCertificate: (
+    cerId: string | number
+  ) => Promise<CertificationType | null>;
+  editCertificate: (
+    formData: AddCertificationType,
+    cerId: number | string
+  ) => void;
   deleteCertificate: (cerId: number | string) => void;
+  addVolunteering: (formData: AddVoluteeringType) => void;
 };

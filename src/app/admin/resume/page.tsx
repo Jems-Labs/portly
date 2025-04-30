@@ -9,6 +9,7 @@ import { useApp } from '@/stores/useApp'
 import ExperienceCard from '@/components/ExperienceCard'
 import EducationCard from '@/components/EducationCard'
 import CertificationCard from '@/components/CertificationCard'
+import VolunteeringCard from '@/components/VolunteeringCard'
 
 function Resume() {
     const { user } = useApp();
@@ -103,8 +104,22 @@ function Resume() {
                         </div>
                     )}
                 </div>
-                <div className='flex items-center justify-between'>
+                <div>
                     <Label className='text-xl'>Volunteering</Label>
+                    {user?.volunteerExperience?.length ? (
+                        <div className="grid grid-cols-1 gap-3 mt-4">
+                            {user.volunteerExperience
+                                .map((experience, index) => (
+                                    <div key={index}>
+                                        <VolunteeringCard experience={experience} isDelete={true} isEdit={true} />
+                                    </div>
+                                ))}
+                        </div>
+                    ) : (
+                        <div className="text-center text-muted-foreground mt-10">
+                            No volunteer experience found.
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

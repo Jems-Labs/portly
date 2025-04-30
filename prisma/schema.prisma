@@ -95,6 +95,7 @@ model VolunteerExperience {
   id                 Int     @id @default(autoincrement())
   role               String
   organization       String
+  organizationWebsite String?
   fromMonth          String
   fromYear           Int
   isCurrentlyWorking Boolean @default(false)
