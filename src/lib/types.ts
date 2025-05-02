@@ -147,4 +147,5 @@ export type useAppType = {
     id: string | number
   ) => void;
   deleteVolunteerExperience: (id: string | number) => void;
+  getUser: (username: string) => Promise<UserType | null>
 };

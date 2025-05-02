@@ -64,7 +64,7 @@ function ProjectCard({ project, isDelete, isEdit }: { project: projectType, isDe
                 </div>
 
                 <div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide my-2">Tools</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 tracking-wide my-2">Built with</p>
                     <div className="flex flex-wrap gap-2">
                         {project.tools.map((tool, index) => (
                             <Badge key={index}>{tool}</Badge>

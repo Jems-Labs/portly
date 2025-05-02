@@ -526,4 +526,15 @@ export const useApp = create<useAppType>((set) => ({
       toast.error(message);
     }
   },
+
+  getUser: async (username) => {
+    try {
+      const res = await axios.get(`/api/profile/get-user?username=${username}`);
+      if(res.status === 200){
+        return res.data || null;
+      }
+    } catch (error) {
+      return null;
+    }
+  }
 }));

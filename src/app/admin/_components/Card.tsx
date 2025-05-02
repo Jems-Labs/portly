@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default function ProfileCard({ user }: { user: UserType | null }) {
   return (
-    <Card className="w-[320px] rounded-2xl shadow-xl border bg-gradient-to-br from-black via-zinc-900 to-gray-950 relative overflow-hidden">
+    <Card className="w-[320px] shadow-xl border bg-gradient-to-br from-black via-zinc-900 to-gray-950 relative overflow-hidde rounded-none">
       <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/5 via-transparent to-transparent pointer-events-none" />
       <CardContent className="p-6 z-10 relative">
         <div className="flex flex-col items-center gap-4">
