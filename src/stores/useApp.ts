@@ -530,11 +530,26 @@ export const useApp = create<useAppType>((set) => ({
   getUser: async (username) => {
     try {
       const res = await axios.get(`/api/profile/get-user?username=${username}`);
-      if(res.status === 200){
+      if (res.status === 200) {
         return res.data || null;
       }
     } catch (error) {
       return null;
     }
+  },
+  viewProfile: async (profileId) => {
+    if (!profileId) return;
+    await axios.post("/api/profile/analytics/profile-view", { profileId });
+  },
+
+  clickLink: async (id) => {
+    if(!id) return;
+    await axios.put("/api/profile/analytics/clicks", {id});
+    
+  },
+  clickProject: async (id) => {
+    if(!id) return;
+    await axios.put("/api/profile/analytics/clicks/project", {id});
+    
   }
 }));

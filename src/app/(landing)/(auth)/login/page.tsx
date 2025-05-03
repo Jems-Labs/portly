@@ -29,7 +29,7 @@ function Login() {
 
   return (
     <div className="p-8 rounded-xl shadow-xl border font-manrope">
-      <h1 className="text-3xl font-semibold mb-2 text-center font-playfair italic">
+      <h1 className="text-3xl font-semibold mb-2 text-center font-playfair">
         Login
       </h1>
       <p className="text-sm text-gray-500 text-center mb-6">
@@ -78,11 +78,10 @@ function Login() {
         <Button
           type="submit"
           disabled={isLoading}
-          variant="secondary"
           className="w-full"
         >
           {isLoading ? (
-            <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+            <div className="animate-spin h-4 w-4 border-2 border-black border-t-transparent rounded-full" />
           ) : (
             "Login"
           )}

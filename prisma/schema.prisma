@@ -8,16 +8,16 @@ datasource db {
 }
 
 model User {
-  id                  Int                  @id @default(autoincrement())
-  username            String               @unique
-  email               String               @unique
+  id                  Int                   @id @default(autoincrement())
+  username            String                @unique
+  email               String                @unique
   password            String
   image               ProfileImage?
-  bio                 String?              @db.Text
+  bio                 String?               @db.Text
   firstName           String?
   lastName            String?
-  status              Status?              @default(open)
-  pronouns            personalPronouns?    @default(prefer_not_to_say)
+  status              Status?               @default(open)
+  pronouns            personalPronouns?     @default(prefer_not_to_say)
   skills              Skill[]
   socialLinks         SocialLink[]
   projects            Project[]
@@ -25,8 +25,10 @@ model User {
   workExperience      WorkExperience[]
   volunteerExperience VolunteerExperience[]
   certifications      Certification[]
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @updatedAt
+  viewed              ProfileView[]         @relation("ViewsMadeByUser")
+  views               ProfileView[]         @relation("ViewsReceivedByUser")
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
 }
 
 model ProfileImage {
@@ -48,6 +50,7 @@ model SocialLink {
   url      String
   userId   Int
   user     User     @relation(fields: [userId], references: [id])
+  clicks   Int?     @default(0)
   platform Platform
 }
 
@@ -61,6 +64,7 @@ model Project {
   userId     Int
   user       User     @relation(fields: [userId], references: [id])
   videoUrl   String?
+  clicks     Int?     @default(0)
   createdAt  DateTime @default(now())
 }
 
@@ -92,36 +96,46 @@ model WorkExperience {
 }
 
 model VolunteerExperience {
-  id                 Int     @id @default(autoincrement())
-  role               String
-  organization       String
+  id                  Int     @id @default(autoincrement())
+  role                String
+  organization        String
   organizationWebsite String?
-  fromMonth          String
-  fromYear           Int
-  isCurrentlyWorking Boolean @default(false)
-  toMonth            String?
-  toYear             Int?
-  userId             Int
-  user               User    @relation(fields: [userId], references: [id])
-  description        String?
+  fromMonth           String
+  fromYear            Int
+  isCurrentlyWorking  Boolean @default(false)
+  toMonth             String?
+  toYear              Int?
+  userId              Int
+  user                User    @relation(fields: [userId], references: [id])
+  description         String?
 }
 
 model Certification {
-  id              Int     @id @default(autoincrement())
-  name            String
+  id               Int     @id @default(autoincrement())
+  name             String
   certificationUrl String?
-  issuedBy        String
-  issueMonth      String
-  issueYear       Int
-  expirationMonth String?
-  expirationYear  Int?
-  userId          Int
-  user            User    @relation(fields: [userId], references: [id])
+  issuedBy         String
+  issueMonth       String
+  issueYear        Int
+  expirationMonth  String?
+  expirationYear   Int?
+  userId           Int
+  user             User    @relation(fields: [userId], references: [id])
+}
+
+model ProfileView {
+  id       Int  @id @default(autoincrement())
+  viewerId Int
+  viewer   User @relation("ViewsMadeByUser", fields: [viewerId], references: [id])
+  viewedId Int
+  viewed   User @relation("ViewsReceivedByUser", fields: [viewedId], references: [id])
+
+  viewedAt DateTime @default(now())
 }
 
 enum Status {
   open
-  hiring
+  hiring 
 }
 
 enum personalPronouns {

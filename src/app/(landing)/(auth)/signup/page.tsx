@@ -68,7 +68,7 @@ function Signup() {
 
   return (
     <div className="p-8 rounded-xl shadow-xl border font-manrope">
-      <h1 className="text-3xl font-semibold mb-2 text-center font-playfair italic">
+      <h1 className="text-3xl font-semibold mb-2 text-center font-playfair">
         Signup & Create your profile
       </h1>
       <p className="text-sm text-gray-500 text-center mb-6">
@@ -79,16 +79,15 @@ function Signup() {
         <div>
           <Label htmlFor="username">Username</Label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-4 font-medium text-gray-400">
-              portly/
+            <div className="absolute inset-y-0 left-0 flex items-center pl-4 font-medium">
+              portly.vercel.app/
             </div>
+
             <Input
-              id="username"
               type="text"
               placeholder="username"
-              className="pl-[68px] pr-10 font-medium rounded-xl border-2 focus-visible:ring-2 focus-visible:ring-blue-500 h-12"
+              className="pl-[147px] pr-12 rounded-lg border-2 focus-visible:ring-2 focus-visible:ring-yellow-500 h-12"
               onChange={handleUsernameChange}
-              value={formData.username}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               {checking && <Loader2 className="animate-spin text-gray-400 w-5 h-5" />}
@@ -141,11 +140,10 @@ function Signup() {
         <Button
           type="submit"
           disabled={isLoading}
-          variant="secondary"
           className="w-full"
         >
           {isLoading ? (
-            <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+            <div className="animate-spin h-4 w-4 border-2 border-black border-t-transparent rounded-full" />
           ) : (
             "Signup"
           )}

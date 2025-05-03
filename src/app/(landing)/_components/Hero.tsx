@@ -42,18 +42,14 @@ function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden min-h-screen flex flex-col justify-center items-center px-4 text-center bg-white">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute -top-32 -left-32 w-[400px] h-[400px] bg-blue-200 rounded-full blur-3xl opacity-50" />
-        <div className="absolute -bottom-20 right-0 w-[300px] h-[300px] bg-blue-300 rounded-full blur-2xl opacity-40" />
-      </div>
+    <section className="flex flex-col justify-center items-center px-4 text-center">
 
-      <div className="relative z-10 w-full max-w-4xl space-y-10 py-16">
+      <div className="z-10 w-full max-w-4xl space-y-10 py-16">
         <div>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-playfair font-extrabold leading-tight italic tracking-tight">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-playfair font-extrabold leading-tight tracking-tight">
             The Portfolio
           </h1>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl text-blue-600 font-manrope font-semibold mt-2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl text-yellow-500 font-manrope font-semibold mt-2">
             that actually works!
           </h1>
         </div>
@@ -66,14 +62,14 @@ function Hero() {
         <div className="w-full max-w-md mx-auto mt-4 flex flex-col sm:flex-row items-stretch gap-3">
           <div className="flex flex-col w-full">
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 font-medium">
-                portly/
+              <div className="absolute inset-y-0 left-0 flex items-center pl-4 font-medium">
+                portly.vercel.app/
               </div>
 
               <Input
                 type="text"
                 placeholder="username"
-                className="pl-[65px] pr-12 font-medium rounded-lg border-2 focus-visible:ring-2 focus-visible:ring-blue-500 h-12"
+                className="pl-[145px] pr-12  rounded-lg border-2 focus-visible:ring-2 focus-visible:ring-yellow-500 h-12"
                 onChange={handleUsernameChange}
               />
 
@@ -93,7 +89,7 @@ function Hero() {
             )}
           </div>
           <Link href={'/signup'}>
-            <Button variant={"secondary"} className="h-12 px-5 text-base">
+            <Button  className="h-12 px-5 text-base">
               Claim
             </Button>
           </Link>

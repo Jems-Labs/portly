@@ -19,6 +19,7 @@ export type socialLinkType = {
   id: number;
   platform: string;
   url: string;
+  clicks: number
 };
 export type projectType = {
   id: number;
@@ -29,6 +30,7 @@ export type projectType = {
   tools: string[];
   userId: number;
   videoUrl: string;
+  clicks: number;
 };
 
 export type UserType = {
@@ -48,6 +50,7 @@ export type UserType = {
   education: EducationType[];
   certifications: CertificationType[];
   volunteerExperience: VolunteeringType[];
+  views: profileViewType[]
 };
 export type ExperienceType = {
   id: number;
@@ -70,6 +73,13 @@ export type AddCertificationType = {
   expirationMonth: string;
   expirationYear: string | number;
 };
+export type profileViewType = {
+  id: number;
+  viewerId: number;
+  viewedId: number;
+  viewer: UserType;
+  viewedAt: Date
+}
 export type AddExperienceType = {
   company: string;
   companyWebsite: string;
@@ -147,5 +157,8 @@ export type useAppType = {
     id: string | number
   ) => void;
   deleteVolunteerExperience: (id: string | number) => void;
-  getUser: (username: string) => Promise<UserType | null>
+  getUser: (username: string) => Promise<UserType | null>;
+  viewProfile: (profileId: string | number) => void;
+  clickLink: (id: string | number) => void;
+  clickProject: (id: string | number) => void;
 };

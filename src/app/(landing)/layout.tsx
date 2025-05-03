@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 
 export default function LandingLayout({
   children,
@@ -7,7 +6,6 @@ export default function LandingLayout({
 }>) {
   return (
     <div>
-        <Navbar />
         {children}
     </div>
   );

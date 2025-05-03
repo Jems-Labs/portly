@@ -12,15 +12,15 @@ import { projectType } from '@/lib/types';
 import { platforms } from '@/lib/utils';
 import { useApp } from '@/stores/useApp';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Mail } from 'lucide-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function UserProfile() {
     const { username } = useParams();
-    const { getUser } = useApp();
+    const { getUser, viewProfile, user: loggedUser, clickLink } = useApp();
     const queryClient = useQueryClient();
-
     const { data: user } = useQuery({
         queryKey: ["user", username],
         queryFn: async () => {
@@ -33,6 +33,16 @@ function UserProfile() {
 
     const [activeTab, setActiveTab] = useState('work'); // Active tab state
 
+    useEffect(() => {
+        if (loggedUser && user) {
+            viewProfile(user?.id)
+        }
+    }, [user, loggedUser, viewProfile]);
+    const handleLinkClick = async (id: string | number, url: string) => {
+
+        await clickLink(id);
+        window.open(url, "_blank");
+    };
     return (
         <div className="px-4 py-6 max-w-5xl mx-auto">
             <div className="flex flex-col items-center space-y-4 rounded-2xl px-6 py-4">
@@ -59,10 +69,10 @@ function UserProfile() {
                             return (
                                 <a
                                     key={link.platform}
-                                    href={link.url}
+                                    onClick={() => handleLinkClick(link?.id, link?.url)}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="border p-1 rounded-lg"
+                                    className="border p-1 rounded-lg cursor-pointer"
                                 >
                                     <Image
                                         src={platform.svg}
@@ -74,6 +84,19 @@ function UserProfile() {
                                 </a>
                             );
                         })}
+                        {user?.email && (
+
+
+                            <a
+                                key={user?.email}
+                                href={`mailto:${user.email}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="border p-1 rounded-lg"
+                            >
+                                <Mail />
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>
@@ -82,14 +105,14 @@ function UserProfile() {
                 <div className="flex justify-center gap-8">
                     <div
                         onClick={() => setActiveTab('work')}
-                        className={`cursor-pointer text-xl font-semibold py-2 px-0 transition-all duration-300 
+                        className={`cursor-pointer text-lg font-semibold py-2 px-0 transition-all duration-300 
             ${activeTab === 'work' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'hover:text-yellow-400'}`}
                     >
                         Work
                     </div>
                     <div
                         onClick={() => setActiveTab('resume')}
-                        className={`cursor-pointer text-xl font-semibold py-2 px-0 transition-all duration-300 
+                        className={`cursor-pointer text-lg font-semibold py-2 px-0 transition-all duration-300 
             ${activeTab === 'resume' ? 'text-yellow-500 border-b-2 border-yellow-500' : 'hover:text-yellow-400'}`}
                     >
                         Resume

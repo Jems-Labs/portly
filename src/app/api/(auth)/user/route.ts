@@ -18,7 +18,12 @@ export async function GET() {
         education: true,
         workExperience: true,
         certifications: true,
-        volunteerExperience: true
+        volunteerExperience: true,
+        views: {
+          include: {
+            viewer: true
+          }
+        }
       },
     });
     if (!user) {
@@ -42,6 +47,7 @@ export async function GET() {
         workExperience: user?.workExperience,
         certifications: user?.certifications,
         volunteerExperience: user?.volunteerExperience,
+        views: user?.views
       },
       { status: 200 }
     );

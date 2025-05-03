@@ -7,7 +7,12 @@ import { Badge } from "./ui/badge";
 import { useApp } from "@/stores/useApp";
 
 function ProjectCard({ project, isDelete, isEdit }: { project: projectType, isDelete: Boolean, isEdit: Boolean }) {
-    const { deleteProject } = useApp();
+    const { deleteProject, clickProject } = useApp();
+
+    const handleProjectClick = async (id: string | number, url: string) => {
+        await clickProject(id);
+        window.open(url, "_blank");
+    }
     return (
         <div className="rounded-lg border overflow-hidden bg-[#0D0D0D]">
             <div className="p-5 flex flex-col">
@@ -30,12 +35,11 @@ function ProjectCard({ project, isDelete, isEdit }: { project: projectType, isDe
                     </div>
 
                     <div className="flex items-center gap-2 my-4 md:my-0">
-                        <Link
-                            href={project.projectUrl}
-                            target="_blank"
-                            className="text-gray-400 hover:text-white transition-colors duration-200 border px-2 py-1 rounded-md">
+                        <div
+                            onClick={()=>handleProjectClick(project.id, project?.projectUrl)}
+                            className="text-gray-400 hover:text-white transition-colors duration-200 border px-2 py-1 rounded-md cursor-pointer">
                             <ExternalLink size={20} />
-                        </Link>
+                        </div>
 
                         <Link
                             href={project.videoUrl}

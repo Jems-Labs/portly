@@ -23,6 +23,7 @@ export async function GET(req: Request) {
         workExperience: true,
         certifications: true,
         volunteerExperience: true,
+        views: true
       },
     });
 
@@ -47,6 +48,7 @@ export async function GET(req: Request) {
         workExperience: user?.workExperience,
         certifications: user?.certifications,
         volunteerExperience: user?.volunteerExperience,
+        views: user?.views
       },
       { status: 200 });
   } catch {
