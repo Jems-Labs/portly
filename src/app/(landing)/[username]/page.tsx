@@ -125,18 +125,19 @@ function UserProfile() {
                         <div className="mt-10">
                             <Label className="text-xl">Skills</Label>
                             {user?.skills?.length ? (
-                                <div className="grid grid-cols-12 gap-2 mt-4">
-                                    {user?.skills.map((skill, index) => {
-                                        return (
-                                            <Badge key={index}>{skill.name}</Badge>
-                                        );
-                                    })}
+                                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 mt-4">
+                                    {user.skills.map((skill, index) => (
+                                        <Badge key={index} className="text-sm">
+                                            {skill.name}
+                                        </Badge>
+                                    ))}
                                 </div>
                             ) : (
                                 <div className="text-center text-muted-foreground mt-10">
                                     No skills found.
                                 </div>
                             )}
+
                         </div>
                         <div className="mt-10">
                             <Label className="text-xl">Projects</Label>
