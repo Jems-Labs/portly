@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { useApp } from "@/stores/useApp";
 
-function ProjectCard({ project, isDelete, isEdit }: { project: projectType, isDelete: Boolean, isEdit: Boolean }) {
+function ProjectCard({ project, isDelete, isEdit }: { project: projectType, isDelete: boolean, isEdit: boolean}) {
     const { deleteProject, clickProject } = useApp();
 
     const handleProjectClick = async (id: string | number, url: string) => {

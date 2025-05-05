@@ -119,7 +119,7 @@ export type useAppType = {
   setClaimedUsername: (username: string) => void;
   user: UserType | null;
   signup: (formData: signupFormData, redirectTo: (url: string) => void) => void;
-  searchUsername: (username: string) => Promise<Boolean>;
+  searchUsername: (username: string) => Promise<boolean>;
   login: (formData: loginFormData, redirectTo: (url: string) => void) => void;
   logout: (redirectTo: (url: string) => void) => void;
   fetchUser: () => void;
