@@ -30,7 +30,7 @@ export async function getToken() {
     try {
       const decoded = jwt.verify(token, SECRET_KEY) as { id: number };
       return decoded.id;
-    } catch (err) {
+    } catch {
       return null;
     }
   }
