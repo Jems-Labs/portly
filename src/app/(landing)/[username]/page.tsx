@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import { projectType } from '@/lib/types';
 import { platforms } from '@/lib/utils';
 import { useApp } from '@/stores/useApp';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Mail } from 'lucide-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';

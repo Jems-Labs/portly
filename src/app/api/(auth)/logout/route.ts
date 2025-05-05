@@ -8,7 +8,7 @@ export async function POST() {
       secure: true,
       maxAge: 0,
       path: "/",
-      sameSite: process.env.isProduction? "none" : "lax",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
     return response;
   } catch {

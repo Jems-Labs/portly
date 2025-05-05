@@ -18,7 +18,7 @@ export async function generateTokenAndSetCookie(
     secure: true,
     maxAge: 60 * 60 * 24 * 7, // 7 days
     path: "/",
-    sameSite: process.env.isProduction ? "none" : "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
   });
 
   return response;
