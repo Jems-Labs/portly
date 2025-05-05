@@ -20,15 +20,12 @@ import React, { useEffect, useState } from 'react';
 function UserProfile() {
     const { username } = useParams();
     const { getUser, viewProfile, user: loggedUser, clickLink } = useApp();
-    const queryClient = useQueryClient();
     const { data: user } = useQuery({
         queryKey: ["user", username],
         queryFn: async () => {
             const res = await getUser(username as string);
             return res;
         },
-        staleTime: 1000 * 60 * 5,
-        placeholderData: () => queryClient.getQueryData(["user", username]),
     });
 
     const [activeTab, setActiveTab] = useState('work'); // Active tab state
