@@ -18,7 +18,7 @@ export async function generateTokenAndSetCookie(
     secure: true,
     maxAge: 60 * 60 * 24 * 7, // 7 days
     path: "/",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   });
 
   return response;
@@ -27,11 +27,7 @@ export async function generateTokenAndSetCookie(
 export async function getToken() {
   const token = (await cookies()).get("token")?.value;
   if (token) {
-    try {
-      const decoded = jwt.verify(token, SECRET_KEY) as { id: number };
-      return decoded.id;
-    } catch {
-      return null;
-    }
+    const decoded = jwt.verify(token, SECRET_KEY) as { id: number };
+    return decoded.id;
   }
 }
