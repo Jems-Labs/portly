@@ -1,5 +1,6 @@
 import { Copyright } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 function Footer() {
@@ -9,7 +10,7 @@ function Footer() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1.5">
                     <Copyright size={13} />
-                    <span>2025 Portly by Jems Labs</span>
+                    <span>2025 Portly by <Link href={"https://jemslabs.xyz"} className="underline">Jems Labs</Link></span>
                 </div>
                 <p>All rights reserved</p>
             </div>

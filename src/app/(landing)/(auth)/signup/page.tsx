@@ -80,7 +80,7 @@ function Signup() {
           <Label htmlFor="username">Username</Label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-4 font-medium">
-              portly.vercel.app/
+              portly.netlify.app/
             </div>
 
             <Input

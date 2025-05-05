@@ -29,7 +29,7 @@ export default function ProfileCard({ user }: { user: UserType | null }) {
           <div className="mt-2 bg-gradient-to-br from-white to-gray-100 border border-gray-200 p-3 rounded-xl shadow-[inset_0_2px_6px_rgba(0,0,0,0.1)]">
             <div className="relative w-[120px] h-[120px] flex items-center justify-center">
               <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://portly.vercel.app/${user?.username}`}
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://portly.netlify.app/${user?.username}`}
                 alt="QR Code"
                 className="rounded-xl"
                 crossOrigin="anonymous"
@@ -37,11 +37,11 @@ export default function ProfileCard({ user }: { user: UserType | null }) {
             </div>
           </div>
           <Link
-            href={`https://portly.vercel.app/${user?.username}`}
+            href={`https://portly.netlify.app/${user?.username}`}
             target="_blank"
             className="mt-4 inline-block text-sm font-semibold text-[#FFD300] hover:underline transition-all"
           >
-            portly.vercel.app/{user?.username}
+            portly.netlify.app/{user?.username}
           </Link>
           <p className="text-xs text-gray-500 mt-3 italic">powered by <span className="text-[#FFD300] font-semibold">portly</span></p>
         </div>
