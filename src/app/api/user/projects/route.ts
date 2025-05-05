@@ -90,7 +90,7 @@ export async function DELETE(req: Request) {
     });
 
     return NextResponse.json({ msg: "Project Deleted" }, { status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -125,7 +125,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ msg: "Unauthorized" }, { status: 401 });
     }
     return NextResponse.json(project, { status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -210,7 +210,7 @@ export async function PUT(req: Request) {
       });
     }
     return NextResponse.json({ msg: "Project Updated" }, { status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

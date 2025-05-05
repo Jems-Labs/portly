@@ -139,7 +139,7 @@ export async function DELETE(req: Request) {
       { msg: "Tag deleted successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

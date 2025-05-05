@@ -72,7 +72,7 @@ export async function POST(req: Request) {
       { msg: "Experience added successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch{
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -209,7 +209,7 @@ export async function PUT(req: Request) {
       { msg: "Experience Updated successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -270,7 +270,7 @@ export async function DELETE(req: Request) {
       { msg: "Experience Deleted successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

@@ -75,7 +75,7 @@ export const useApp = create<useAppType>((set) => ({
       } else {
         set({ user: null });
       }
-    } catch (error) {
+    } catch {
       set({ user: null });
     }
   },
@@ -91,7 +91,7 @@ export const useApp = create<useAppType>((set) => ({
         const { fetchUser } = useApp.getState();
         fetchUser();
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to update profile. Please try again.");
     }
   },
@@ -103,7 +103,7 @@ export const useApp = create<useAppType>((set) => ({
         const { fetchUser } = useApp.getState();
         fetchUser();
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to add tag. Please try again.");
     }
   },
@@ -115,7 +115,7 @@ export const useApp = create<useAppType>((set) => ({
         const { fetchUser } = useApp.getState();
         fetchUser();
       }
-    } catch (error) {
+    } catch{
       toast.error("Failed to delete tag. Please try again.");
     }
   },
@@ -127,7 +127,7 @@ export const useApp = create<useAppType>((set) => ({
         const { fetchUser } = useApp.getState();
         fetchUser();
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to add social link. Please try again.");
     }
   },
@@ -166,7 +166,7 @@ export const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         return res.data;
       }
-    } catch (error) {
+    } catch{
       return null;
     }
   },
@@ -305,7 +305,7 @@ export const useApp = create<useAppType>((set) => ({
       } else {
         return null;
       }
-    } catch (error) {
+    } catch {
       return null;
     }
   },
@@ -473,7 +473,7 @@ export const useApp = create<useAppType>((set) => ({
       } else {
         return null;
       }
-    } catch (error) {
+    } catch {
       return null;
     }
   },
@@ -533,7 +533,7 @@ export const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         return res.data || null;
       }
-    } catch (error) {
+    } catch {
       return null;
     }
   },
