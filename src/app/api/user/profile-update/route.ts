@@ -12,6 +12,9 @@ export async function PUT(req: Request) {
   const formData = await req.formData();
   const id = await getToken();
   try {
+    if(!id){
+      return NextResponse.json({msg: "No id provided"}, {status: 400});
+    }
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
     const bio = formData.get("bio") as string;
@@ -92,7 +95,9 @@ export async function POST(req: Request) {
     if (!tag) {
       return NextResponse.json({ msg: "Tag not found" }, { status: 404 });
     }
-
+    if(!id){
+      return NextResponse.json({msg: "No id provided"}, {status: 400});
+    }
     const user = await prisma.user.findUnique({
       where: { id },
     });
@@ -120,6 +125,9 @@ export async function DELETE(req: Request) {
   const tagId = searchParams.get("tagId");
   const prasedTagId = parseInt(tagId as string, 10);
   try {
+    if(!id){
+      return NextResponse.json({msg: "No id provided"}, {status: 400});
+    }
     if (!tagId) {
       return NextResponse.json({ msg: "Tag not found" }, { status: 404 });
     }
