@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default async function UserProfilePage({ params }: Props){
-    const { username } = await params; 
+    const { username } = params; 
     const user = await getUser(username);
     if(!user) return notFound() ;
 
