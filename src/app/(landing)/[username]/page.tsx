@@ -1,15 +1,17 @@
-import { getUser } from "@/lib/api";
 import { notFound } from 'next/navigation';
-import UserProfile from "./_components/UserProfile";
+import { getUser } from '@/lib/api';
+import UserProfile from './_components/UserProfile';
 
-interface Props {
-    params: { username: string };
-}
+type PageProps = {
+  params: {
+    username: string;
+  };
+};
 
-export default async function UserProfilePage({ params }: Props){
-    const { username } = await params; 
-    const user = await getUser(username);
-    if(!user) return notFound() ;
+export default async function UserProfilePage({ params }: PageProps) {
+  const user = await getUser(params.username);
 
-    return <UserProfile user={user}/>
+  if (!user) return notFound();
+
+  return <UserProfile user={user} />;
 }
