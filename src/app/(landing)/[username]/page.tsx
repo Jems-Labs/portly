@@ -8,6 +8,7 @@ import VolunteeringCard from '@/components/VolunteeringCard';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { Skeleton } from '@/components/ui/skeleton';
 import { projectType, UserType } from '@/lib/types';
 import { platforms } from '@/lib/utils';
 import { useApp } from '@/stores/useApp';
@@ -47,10 +48,56 @@ function UserProfile() {
     await clickLink(id);
     window.open(url, "_blank");
   };
-
   if (!user) {
-    return <div>Loading...</div>; // Display loading state while fetching user data
+    return (
+      <div className="px-4 py-6 max-w-5xl mx-auto space-y-10">
+        <div className="flex flex-col items-center space-y-4 px-6 py-4">
+          <div className="rounded-full border-2 border-yellow-500 overflow-hidden w-24 h-24 md:w-32 md:h-32">
+            <Skeleton className="w-full h-full rounded-full" />
+          </div>
+          <div className="text-center flex flex-col items-center space-y-2">
+            <Skeleton className="h-6 w-40" />
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-4 w-60" />
+            <div className="flex gap-2 mt-2">
+              {[...Array(4)].map((_, i) => (
+                <Skeleton key={i} className="h-8 w-8 rounded-md" />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div className="flex justify-center gap-8">
+            <Skeleton className="h-6 w-20" />
+            <Skeleton className="h-6 w-20" />
+          </div>
+          <Separator />
+
+          <div className="space-y-6">
+            <div className="mt-10 space-y-4">
+              <Skeleton className="h-6 w-24" />
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 mt-4">
+                {[...Array(8)].map((_, i) => (
+                  <Skeleton key={i} className="h-6 w-16 rounded" />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10 space-y-4">
+              <Skeleton className="h-6 w-24" />
+              <div className="grid grid-cols-1 gap-4">
+                {[...Array(2)].map((_, i) => (
+                  <Skeleton key={i} className="h-24 w-full rounded-xl" />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
+
 
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">
