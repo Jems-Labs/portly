@@ -10,7 +10,7 @@ export async function getUser(username: string) {
       }api/profile/get-user?username=${username}`
     );
     return res.data;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
